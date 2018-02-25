@@ -1,19 +1,37 @@
-﻿README
-======
+﻿# README
+---
 
-1. Put file into this directory.
+## How To Use
 
-2. Run *initiate.py* and input the number of rows in *Descr.xlsx*.
+### As a module:
 
-3.
-    1. Manually complete **FULLDESCR2**  column of *Descr.xlsx* so that the descriptions are in this format: "The [product] from [manufacturer] comes in [colour] colour, featuring [featuring]. [Extra text] sport(s) [sporting]."
+1. Put the Excel file, *Descr.xlsx*, into this directory.
 
-    2. Leave repeated products empty, and skip products by (a) entering the string "SKIP" into **FULLDESCR1** or (b) leaving **FULLDESCR2** empty.
+2. Open the Python interpreter and `from trkopx import Opx`.
 
-4. Run *finalize.py* and input the number of rows in *Descr.xlsx*.
+3. Instantiate `Opx` with the number of rows (optionally).
 
-5. Fill in the blank descriptions in the file manually.
+4. Invoke the object's `alpha` method.
 
-6. Put file back in the batch's directory.
+5.
+    1. Manually complete **FULLDESCR2**  column of *Descr.xlsx* so that the
+       descriptions are in this format: "The [product] from [manufacturer]
+       comes in [colour] colour, featuring [featuring]. [Extra text] sport(s)
+       [sporting]."
 
-7. Refine procedure.
+    2. Leave repeated products empty, and skip products by entering the
+       string "SKIP" for either description.
+
+    3. Enter the string "EZPZ" to leave the last line unchanged.
+
+6. Invoke the object's `beta` method.
+
+7. Fill in the blank descriptions in the file manually.
+
+8. Resolve conflicts.
+
+9. Refine procedure.
+
+### As a script:
+
+*Functionality pending.*
