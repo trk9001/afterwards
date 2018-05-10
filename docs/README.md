@@ -2,7 +2,6 @@
 
 ## How To Use
 
-
 ### As a module:
 
 1. Put the Excel file, *Descr.xlsx*, into this directory.
@@ -31,7 +30,6 @@
 8. Resolve conflicts.
 
 9. Refine procedure.
-
 
 ### As a script:
 
