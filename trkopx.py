@@ -1,23 +1,23 @@
-#! /usr/bin/env python
-
 """Script to help fill out product descriptions for Stand-Out.net.
 
 Under development. Since all the necessary methods are encapsulated in a class,
-it may be imported (ie., from trkopx import Opx) for use interactively.
+it may be imported (ie., `from trkopx import FillSheet`) for use interactively.
 
 Prerequisites (subject to changes):
 > Have file Descr.xlsx in the same directory as this script.
 
 Usage:
-> Instantiate Opx with or without the number of rows as a parameter.
+> Instantiate FillSheet with or without the number of rows as a parameter.
 > Invoke alpha() without or with the number of rows as a parameter.
 > Invoke beta() without or with the number of rows as a parameter.
 > Pay attention to and handle any raised exceptions.
 
->> from trkopx import Opx
->> o = Opx(69)
->> o.alpha()
->> o.beta()
+```
+from trkopx import FillSheet
+o = FillSheet(69)
+o.alpha()
+o.beta()
+```
 """
 
 import argparse
@@ -28,12 +28,12 @@ from openpyxl import load_workbook
 from openpyxl.styles import Alignment, Font
 
 
-class Opx:  # 'O', not 0
+class FillSheet:
 
-    XFILE = 'Descr.xlsx'
+    SHEET = 'Descr.xlsx'
 
     def __init__(self, rows=None):
-        if not os.path.exists(self.XFILE):
+        if not os.path.exists(self.SHEET):
             raise FileNotFoundError
 
         if rows is None or isinstance(rows, int):
@@ -41,13 +41,18 @@ class Opx:  # 'O', not 0
         else:
             raise TypeError('Invalid type for rows in constructor')
 
-        self.seed = self.get_mcolumn()
+        self.seed = self.get_mc()
         if self.seed is None:
             raise TypeError('Not seeded from file')
 
+        self.a = self.alpha
+        self.b = self.beta
+
     @classmethod
-    def get_mcolumn(cls):  # Manufacturer column
-        wb = load_workbook(cls.XFILE)
+    def get_mc(cls):
+        """Return the number of the Manufacturer column"""
+
+        wb = load_workbook(cls.SHEET)
         ws = wb.active
 
         for col in range(2, 10):
@@ -82,7 +87,7 @@ class Opx:  # 'O', not 0
         # Set column numbers sequentially from seed value
         M, P, C, D1, D2 = (self.seed + i for i in range(5))
 
-        wb = load_workbook(self.XFILE)
+        wb = load_workbook(self.SHEET)
         ws = wb.active
 
         p = ''
@@ -104,7 +109,7 @@ class Opx:  # 'O', not 0
             self.format_cell(ws.cell(row=i, column=D2))
             ws.cell(row=i, column=D2).value = descr
 
-        wb.save(self.XFILE)
+        wb.save(self.SHEET)
 
     def beta(self, rows=None):
         if rows is not None:
@@ -119,7 +124,7 @@ class Opx:  # 'O', not 0
         # Set column numbers sequentially from seed value
         M, P, C, D1, D2 = (self.seed + i for i in range(5))
 
-        wb = load_workbook(self.XFILE)
+        wb = load_workbook(self.SHEET)
         ws = wb.active
 
         m = ''
@@ -205,9 +210,9 @@ class Opx:  # 'O', not 0
                 self.format_cell(ws.cell(row=i, column=D1))
                 ws.cell(row=i, column=D1).value = descr
 
-        wb.save(self.XFILE)
+        wb.save(self.SHEET)
 
-# End of Opx
+# End of FillSheet
 
 
 if __name__ == '__main__':
