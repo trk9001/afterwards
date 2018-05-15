@@ -3,15 +3,15 @@
 """Script to help fill out product descriptions for Stand-Out.net.
 
 Under development. Since all the necessary methods are encapsulated in a class,
-it may be imported (ie., `from trkopx import FillSheet`) for use interactively.
+it may be imported (ie., as a module) for use interactively.
 
-Prerequisites (subject to changes):
+Prerequisite to the easiest usage right now:
 > Have file Descr.xlsx in the same directory as this script.
 
-Usage:
-> Instantiate FillSheet with or without the number of rows as a parameter.
-> Invoke alpha() without or with the number of rows as a parameter.
-> Invoke beta() without or with the number of rows as a parameter.
+Easiest usage:
+> Instantiate FillSheet.
+> Invoke alpha() with or without the number of rows as a parameter.
+> Invoke beta() with or without the number of rows as a parameter.
 > Pay attention to and handle any raised exceptions.
 
 ---example use---
@@ -96,14 +96,11 @@ class FillSheet:
 
     def alpha(self, rows=None):
 
-            if rows is not None:
-                if isinstance(rows, int):
-                    self.rows = rows
-                else:
-                    raise TypeError('Invalid type for rows in alpha')
+            if rows is None:
+                rows = self.rows
 
-            if self.rows is None:
-                raise TypeError('Invalid type for self.rows in alpha')
+            elif not isinstance(rows, int):
+                raise TypeError('Invalid type for rows in alpha')
 
             # Set column numbers sequentially from seed value
             M, P, C, D1, D2 = (self.seed + i for i in range(5))
@@ -114,7 +111,7 @@ class FillSheet:
             p = ''
 
             i = 1
-            while i < self.rows:
+            while i < rows:
                 i += 1
 
                 if i > 2 and ws.cell(row=i, column=P).value == p:
@@ -134,14 +131,11 @@ class FillSheet:
 
     def beta(self, rows=None):
 
-            if rows is not None:
-                if isinstance(rows, int):
-                    self.rows = rows
-                else:
-                    raise TypeError('Invalid type for rows in beta')
+            if rows is None:
+                rows = self.rows
 
-            if self.rows is None:
-                raise TypeError('Invalid type for self.rows in beta')
+            elif not isinstance(rows, int):
+                raise TypeError('Invalid type for rows in beta')
 
             # Set column numbers sequentially from seed value
             M, P, C, D1, D2 = (self.seed + i for i in range(5))
@@ -155,7 +149,7 @@ class FillSheet:
 
             i = 1
             times_repeated = 0
-            while i < self.rows:
+            while i < rows:
                 i += 1
 
                 # Manual skip condition (either cell works)
@@ -225,9 +219,9 @@ class FillSheet:
                         except Exception as e:
                             print(i, type(e), e)
 
-                        descr = descr.replace(sport, '#')
+                        descr = descr.replace(sport, '$')
                         descr = descr.replace(ft, sport)
-                        descr = descr.replace('#', ft)
+                        descr = descr.replace('$', ft)
 
                     self.format_cell(ws.cell(row=i, column=D1))
                     ws.cell(row=i, column=D1).value = descr
