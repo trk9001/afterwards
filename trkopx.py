@@ -114,6 +114,17 @@ class FillSheet:
             while i < rows:
                 i += 1
 
+                # Handler for cases where there is some text in the second
+                # description column
+                if ws.cell(row=i, column=D2).value:
+                    tmp = ws.cell(row=i, column=D1).value
+                    if tmp is None:
+                        tmp = ''
+
+                    tmp = tmp + '; ' + ws.cell(row=i, column=D2).value
+                    ws.cell(row=i, column=D1).value = tmp
+                    ws.cell(row=i, column=D2).value = None
+
                 if i > 2 and ws.cell(row=i, column=P).value == p:
                     continue
 
@@ -122,7 +133,6 @@ class FillSheet:
                 c = ws.cell(row=i, column=C).value
 
                 descr = f'The {p} from {m} comes in {c} colour, featuring'
-                # TODO: Refine to accommodate plural products
 
                 self.format_cell(ws.cell(row=i, column=D2))
                 ws.cell(row=i, column=D2).value = descr
@@ -209,7 +219,6 @@ class FillSheet:
                         end_ = re.search(r'featuring.*$', D2_val).group(0)
                     except Exception as e:
                         print(i, type(e), e)
-                    # TODO: Refine to accommodate plural products
 
                     descr = start_ + end_
                     if full_descr:
