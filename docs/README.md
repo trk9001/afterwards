@@ -1,36 +1,26 @@
 ﻿# README
 
-## How To Use
+More documentation and license/copyright details coming soon.
 
-### As a module:
+## trkopx.py
 
-1. Put the Excel file, *Descr.xlsx*, into this directory.
+This is a script to help fill out product descriptions for a particular online British men's fashion store.
 
-2. Open the Python interpreter and `from trkopx import Opx`.
+When run from the command line, the script takes one required argument to specify the operation to be performed ('1' for step_1 or '2' for step_2).
 
-3. Instantiate `Opx` with the number of rows (optionally).
+By default, it looks for an Excel file named Descr.xlsx in the script's own directory and processes all non-empty rows. Optionally, it may take a path to an Excel file (ending with .xlsx), and with the -r option, the number of rows to process.
 
-4. Invoke the object's `alpha` method.
+### Requirements
 
-5.
-    1. Manually complete **FULLDESCR2**  column of *Descr.xlsx* so that the
-       descriptions are in this format: "The [product] from [manufacturer]
-       comes in [colour] colour, featuring [featuring]. [Extra text] sport(s)
-       [sporting]."
+1. `python>=3.6`
+2. `openpyxl>=2.5` (install with pip from requirements.txt)
 
-    2. Leave repeated products empty, and skip products by entering the
-       string "SKIP" for either description.
+### Examples of usage
 
-    3. Enter the string "EZPZ" to leave the last line unchanged.
+- `python -m trkopx a`
+- `trkopx.py b /home/user/this.xlsx -r 42`
 
-6. Invoke the object's `beta` method.
+---
 
-7. Fill in the blank descriptions in the file manually.
-
-8. Resolve conflicts.
-
-9. Refine procedure.
-
-### As a script:
-
-*Functionality pending.*
+*© 2018 [trk9001](mailto:dev.trk.9001@gmail.com "dev.trk.9001@gmail.com").*
+*All Rights Reserved.*
