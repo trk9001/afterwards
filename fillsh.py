@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 """Script to help fill out product descriptions for a men's fashion store.
 
 When run from the command line, this script takes one required argument to
@@ -8,12 +10,11 @@ Excel file (ending with .xlsx), and with the -r option, the number of rows to
 process.
 
 Usage examples:
-> python -m trkopx a
-> trkopx.py b /home/user/this.xlsx -r 42
+> python -m fillsh a
+> fillsh.py b /home/user/this.xlsx -r 42
 
 TODO(trk9001):
 > Create a bash wrapper script
-> Update docs/README.md to reflect new usage
 
 Source & documentation: <https://github.com/trk9001/trkopx>
 © 2018 trk9001 <dev.trk.9001@gmail.com>. All Rights Reserved.
@@ -291,7 +292,7 @@ def main():
             description=('Script to help fill out product descriptions\n'
                          "for a men's fashion store."),
             epilog=('Source: https://github.com/trk9001/trkopx\n'
-                    '© 2018 trk9001 <dev.trk.9001@gmail.com>.\n'
+                    '© 2018 trk9001 <dev.trk.9001@gmail.com>\n'
                     'All Rights Reserved.')
     )
 

@@ -1,8 +1,6 @@
 ﻿# README
 
-More documentation and license/copyright details coming soon.
-
-## trkopx.py
+## fillsh.py
 
 This is a script to help fill out product descriptions for a particular online British men's fashion store.
 
@@ -17,10 +15,10 @@ By default, it looks for an Excel file named Descr.xlsx in the script's own dire
 
 ### Examples of usage
 
-- `python -m trkopx a`
-- `trkopx.py b /home/user/this.xlsx -r 42`
+- `python -m fillsh a`
+- `fillsh.py b /home/user/this.xlsx -r 42`
 
 ---
 
-*© 2018 [trk9001](mailto:dev.trk.9001@gmail.com "dev.trk.9001@gmail.com").*
+*© 2018 [trk9001](mailto:dev.trk.9001@gmail.com "dev.trk.9001@gmail.com")*\
 *All Rights Reserved.*
