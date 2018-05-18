@@ -1,24 +1,22 @@
-#! venv/bin/python
+"""Script to help fill out product descriptions for a men's fashion store.
 
-"""Script to help fill out product descriptions for Stand-Out.net.
+When run from the command line, this script takes one required argument to
+specify the operation to be performed ('1' for step_1 or '2' for step_2). By
+default, it looks for an Excel file named Descr.xlsx in the script's own
+directory and processes all non-empty rows. Optionally, it may take a path to an
+Excel file (ending with .xlsx), and with the -r option, the number of rows to
+process.
 
-Under development. Since all the necessary methods are encapsulated in a class,
-it may be imported (ie., as a module) for use interactively.
+Usage examples:
+> python -m trkopx a
+> trkopx.py b /home/user/this.xlsx -r 42
 
-Prerequisite to the easiest usage right now:
-> Have file Descr.xlsx in the same directory as this script.
+TODO(trk9001):
+> Create a bash wrapper script
+> Update docs/README.md to reflect new usage
 
-Easiest usage:
-> Instantiate FillSheet.
-> Invoke alpha() with or without the number of rows as a parameter.
-> Invoke beta() with or without the number of rows as a parameter.
-> Pay attention to and handle any raised exceptions.
-
----example use---
-from trkopx import FillSheet
-o = FillSheet()
-o.alpha()
-o.beta()
+Source & documentation: <https://github.com/trk9001/trkopx>
+© 2018 trk9001 <dev.trk.9001@gmail.com>. All Rights Reserved.
 
 """
 
@@ -30,29 +28,48 @@ from openpyxl import load_workbook
 from openpyxl.styles import Alignment, Font
 
 
-class FillSheet:
+class FillSheet(object):
+    """The class that does all the work.
 
-    """
-    Column labels in the alpha & beta methods:
+    Attributes:
 
-    D1: Description 1
-    D2: Description 2
-    M: Manufacturer
-    P: Product
-    C: Colour
+        DEFAULT_SHEET: Default file to open.
+        SHEET: File used by current instance.
+        rows: Number of rows in the sheet.
+        seed: Starting column index.
+
+    Column labels in the step_1 & step_2 methods:
+
+        D1: Description 1.
+        D2: Description 2.
+        M: Manufacturer.
+        P: Product.
+        C: Colour.
 
     """
 
     DEFAULT_SHEET = 'Descr.xlsx'
 
     def __init__(self, sheet=None, rows=None):
+            """Constructor.
 
-            # Attributes
-            self.SHEET = None
-            self.rows = None
-            self.seed = None
+            Raises:
 
-            self.SHEET = sheet if sheet else self.DEFAULT_SHEET
+                TypeError: Invalid file, must have extension .xlsx.
+                TypeError: Invalid type for rows in constructor.
+                TypeError: Not seeded from file.
+                FileNotFoundError
+
+            """
+
+            if sheet:
+                if '.xlsx' in sheet:
+                    self.SHEET = sheet
+                else:
+                    raise TypeError('Invalid file, must have extension .xlsx.')
+
+            else:
+                self.SHEET = self.DEFAULT_SHEET
 
             if not os.path.exists(self.SHEET):
                 raise FileNotFoundError
@@ -64,7 +81,7 @@ class FillSheet:
                 self.rows = rows
 
             else:
-                raise TypeError('Invalid type for rows in constructor')
+                raise TypeError('Invalid type for rows in constructor.')
 
             seed = self.get_mc()
 
@@ -72,20 +89,16 @@ class FillSheet:
                 self.seed = seed
 
             else:
-                raise TypeError('Not seeded from file')
-
-            # Aliases
-            self.a = self.alpha
-            self.b = self.beta
+                raise TypeError('Not seeded from file.')
 
     def get_rows(self):
-            """Return the number of rows in the sheet"""
+            """Return the number of rows in the sheet."""
 
             wb = load_workbook(self.SHEET)
             return len(list(wb.active.rows))
 
     def get_mc(self):
-            """Return the index of the Manufacturer column"""
+            """Return the index of the Manufacturer column."""
 
             wb = load_workbook(self.SHEET)
             ws = wb.active
@@ -94,13 +107,24 @@ class FillSheet:
                 if ws.cell(row=1, column=col).value == 'MANUFACTURER':
                     return col
 
-    def alpha(self, rows=None):
+    def step_1(self, rows=None):
+            """Initial operation.
+
+            Args:
+
+                rows: Optional argument for the number of rows to process.
+
+            Raises:
+
+                TypeError: Invalid type for rows in step_1.
+
+            """
 
             if rows is None:
                 rows = self.rows
 
             elif not isinstance(rows, int):
-                raise TypeError('Invalid type for rows in alpha')
+                raise TypeError('Invalid type for rows in step_1.')
 
             # Set column numbers sequentially from seed value
             M, P, C, D1, D2 = (self.seed + i for i in range(5))
@@ -115,7 +139,7 @@ class FillSheet:
                 i += 1
 
                 # Handler for cases where there is some text in the second
-                # description column
+                # description column.
                 if ws.cell(row=i, column=D2).value:
                     tmp = ws.cell(row=i, column=D1).value
                     if tmp is None:
@@ -139,13 +163,24 @@ class FillSheet:
 
             wb.save(self.SHEET)
 
-    def beta(self, rows=None):
+    def step_2(self, rows=None):
+            """Final operation.
+
+            Args:
+
+                rows: Optional argument for the number of rows to process.
+
+            Raises:
+
+                TypeError: Invalid type for rows in step_2.
+
+            """
 
             if rows is None:
                 rows = self.rows
 
             elif not isinstance(rows, int):
-                raise TypeError('Invalid type for rows in beta')
+                raise TypeError('Invalid type for rows in step_2.')
 
             # Set column numbers sequentially from seed value
             M, P, C, D1, D2 = (self.seed + i for i in range(5))
@@ -220,6 +255,7 @@ class FillSheet:
                     except Exception as e:
                         print(i, type(e), e)
 
+                    # TODO(trk9001) Fix possible pre-assignment references
                     descr = start_ + end_
                     if full_descr:
                         try:
@@ -239,7 +275,6 @@ class FillSheet:
 
     @staticmethod
     def format_cell(cell):
-            """Visually format one worksheet cell as specified"""
 
             cell.alignment = Alignment(horizontal='left', wrap_text=True)
             cell.font = Font(name='Calibri', size=8)
@@ -247,5 +282,43 @@ class FillSheet:
 # End of FillSheet
 
 
+def main():
+    """Execute the CLI argument parser."""
+
+    parser = argparse.ArgumentParser(
+            usage='%(prog)s [-h] <OPERATION> [FILE] [-r R]',
+            formatter_class=argparse.RawDescriptionHelpFormatter,
+            description=('Script to help fill out product descriptions\n'
+                         "for a men's fashion store."),
+            epilog=('Source: https://github.com/trk9001/trkopx\n'
+                    '© 2018 trk9001 <dev.trk.9001@gmail.com>.\n'
+                    'All Rights Reserved.')
+    )
+
+    parser.add_argument(
+            'OPERATION',
+            choices=['1', '2'],
+            help='choose one of the two OPERATIONS (step 1 or 2)'
+    )
+
+    parser.add_argument(
+            'FILE',
+            nargs='?',
+            help='path to the Excel file (Descr.xlsx)'
+    )
+
+    parser.add_argument(
+            '-r', '--rows',
+            dest='R',
+            type=int,
+            help='process R rows (defaults to all)'
+    )
+
+    args = parser.parse_args()
+
+    fs = FillSheet(args.FILE, args.R)
+    getattr(fs, 'step_' + args.OPERATION)()
+
+
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
+    main()
