@@ -17,7 +17,8 @@ TODO(trk9001):
 > Create a bash wrapper script
 
 Source & documentation: <https://github.com/trk9001/trkopx>
-© 2018 trk9001 <dev.trk.9001@gmail.com>. All Rights Reserved.
+© 2018 trk9001 <dev.trk.9001@gmail.com>
+All Rights Reserved.
 
 """
 
@@ -112,11 +113,9 @@ class FillSheet(object):
             """Initial operation.
 
             Args:
-
                 rows: Optional argument for the number of rows to process.
 
             Raises:
-
                 TypeError: Invalid type for rows in step_1.
 
             """
@@ -168,11 +167,9 @@ class FillSheet(object):
             """Final operation.
 
             Args:
-
                 rows: Optional argument for the number of rows to process.
 
             Raises:
-
                 TypeError: Invalid type for rows in step_2.
 
             """
