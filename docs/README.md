@@ -91,13 +91,22 @@ employee of the mentioned store. It's still open source since I'm hoping that
 anyone looking to create something similar can use this for inspiration or even
 take it and modify it for their own purposes.
 
-*PS. I'll add a license soon.*
-
 ## Feedback
 
 If you find a bug, please open an Issue here to report it. Note that I'll only
 accept Pull Requests if they are useful and match the style of the rest of this
 project.
 
-If you have questions and/or comments, please drop me a line anytime you like at:  
+If you have questions and/or comments, please drop me a line anytime you like
+at:
+
 [dev.trk.9001 (at) gmail (dot) com](mailto:dev.trk.9001@gmail.com)
+
+## License
+
+![CC BY-SA 4.0](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
+
+© 2018 by [trk9001](mailto:dev.trk.9001@gmail.com).
+This project is licensed under a Creative Commons Attribution-ShareAlike 4.0
+International License:
+[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0).
