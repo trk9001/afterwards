@@ -1,0 +1,79 @@
+#! /bin/bash
+
+# Wrapper bash script for fillsh.py.
+# Put this into $HOME/bin and `chmod +x` it.
+
+# Change the `scr` and `venv` variables to the root directories of the script
+# and its virtual environment respectively.
+scr="/home/trk/trkopx"
+venv="$scr/venv"
+
+
+# Functions to echo feedback
+
+usage()
+{
+    echo
+    echo "usage: fillsh {1,2} [-f file] [-r rows]"
+    echo
+}
+
+error_invalid_rows()
+{
+    echo
+    echo "error: rows must have a numerical value and be >0"
+    echo
+}
+
+
+# Main
+
+if [[ $1 != [12] ]]; then
+    usage
+    exit 1
+fi
+
+op="$1"
+shift
+
+file="$(pwd)/Descr.xlsx"
+rows=
+
+while [[ -n $1 ]]; do  # while $1 is not null
+    case $1 in
+        -f | --file )
+            shift
+            if [[ $1 == /* ]]; then
+                file="$1"
+            else
+                file="$(pwd)/$1"
+            fi
+            ;;
+        -r | --rows )
+            shift
+            if [[ $1 =~ ^[0-9]*$ && $1 > 0 ]]; then
+                rows=$1
+            else
+                error_invalid_rows
+                exit 1
+            fi
+            ;;
+        * )
+            usage
+            exit 1
+    esac
+    shift
+done
+
+. "$venv/bin/activate"
+
+if [[ -z rows ]]; then
+    "$scr/fillsh.py" "$op" "$file"
+else
+    "$scr/fillsh.py" "$op" "$file" "-r $rows"
+fi
+
+deactivate
+
+echo OK
+exit 0
