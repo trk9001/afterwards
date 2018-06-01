@@ -1,6 +1,6 @@
 # README
 
-## Using the Python script `fillsh.py`
+## 1. Using the Python script `fillsh.py`
 
 This is a script to help fill out product descriptions for a particular online
 British men's fashion store. When run from the command line, the script takes
@@ -52,7 +52,33 @@ optional arguments:
 - `[source venv/bin/activate &&] python -m fillsh a`
 - `[source venv/bin/activate &&] ./fillsh.py b /home/user/this.xlsx -r 42`
 
-## What is this?
+## 2. Using the Bash (wrapper) script `fillsh`
+
+The bash wrapper makes it easy to run the `fillsh.py` script (including
+activating/deactivating any virtual env) from any directory, just like a regular
+Bash utility.
+
+### Setup
+
+- Place the bash script in `~/bin`. If the directory doesn't exist, `mkdir` it.
+This ensures that you can access the script from anywhere (`~/bin` is added to
+your shell's `PATH`).
+
+- Edit the script to change the first two variables, `scr` and `venv`, to the
+root directories of the script and its virtual env respectively.
+
+- `chmod +x ~/bin/fillsh`
+
+### Usage
+
+```
+usage: fillsh {1,2} [-f file] [-r rows]
+```
+
+Pretty self-explanatory, if you've read the usage section under *1. Using the
+Python script `fillsh.py`*
+
+## 3. What is this?
 
 This is one of my first useful Python projects. I write product descriptions
 for an online fashion store, looking at their provided corresponding images.
@@ -91,7 +117,7 @@ employee of the mentioned store. It's still open source since I'm hoping that
 anyone looking to create something similar can use this for inspiration or even
 take it and modify it for their own purposes.
 
-## Feedback
+## 4. Feedback
 
 If you find a bug, please open an Issue here to report it. Note that I'll only
 accept Pull Requests if they are useful and match the style of the rest of this
@@ -102,7 +128,7 @@ at:
 
 [dev.trk.9001 (at) gmail (dot) com](mailto:dev.trk.9001@gmail.com)
 
-## License
+## 5. License
 
 ![CC BY-SA 4.0](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
 

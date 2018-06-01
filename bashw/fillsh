@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 # Wrapper bash script for fillsh.py.
 # Put this into $HOME/bin and `chmod +x` it.
