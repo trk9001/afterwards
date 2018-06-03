@@ -67,7 +67,7 @@ done
 
 . "$venv/bin/activate"
 
-if [[ -z rows ]]; then
+if [[ -z $rows ]]; then
     "$scr/fillsh.py" "$op" "$file"
 else
     "$scr/fillsh.py" "$op" "$file" "-r $rows"
