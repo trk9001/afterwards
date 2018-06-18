@@ -11,14 +11,13 @@ process.
 
 Usage examples:
 > python -m fillsh a
-> fillsh.py b /home/user/this.xlsx -r 42
-
-TODO(trk9001):
-> Create a bash wrapper script
+> ./fillsh.py b /home/user/this.xlsx -r 42
 
 Source & documentation: <https://github.com/trk9001/trkopx>
 © 2018 trk9001 <dev.trk.9001@gmail.com>
-All Rights Reserved.
+CC BY-SA 4.0
+
+This project is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.
 
 """
 
@@ -290,7 +289,7 @@ def main():
                          "for a men's fashion store."),
             epilog=('Source: https://github.com/trk9001/trkopx\n'
                     '© 2018 trk9001 <dev.trk.9001@gmail.com>\n'
-                    'All Rights Reserved.')
+                    'CC BY-SA 4.0')
     )
 
     parser.add_argument(
