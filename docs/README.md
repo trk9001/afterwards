@@ -1,37 +1,49 @@
-# README
+# Afterwards (aw)
 
-*For **beb**.*
+## What is this?
 
-## What I want it to be
+This is (going to be) a task reminder utility for Linux, written in Bash or
+Python or something. It will play a user-specified audio track for an alarm
+and display an alert on the screen, probably.
 
-So this is going to be like, a task reminder utility for Linux, written in Bash
-or Python. Off the top of my head, it will be based on the `at` command for
-Linux and may make use of a lightweight database like SQLite. It will play an
-alarm at the specified time(s).
+### Usage
 
-For now, the goal is to make something like this:
+This is really tentative.
+
 ```
 aw <date> <time> [-r mins] <task>
-
-date
-  Either an actual date like '7/5' (for July 5) or relative stuff like 'today'
-  or 'tomorrow'. Maybe even weekdays.
-
-time
-  Time in 24-hour format.
-
--r mins
-  An option to sound the alarm 'mins' minutes before the task as well.
-
-task
-  The actual task.
 ```
 
-I'm thinking it might have an rc file and/or a config directory to hold any
-data, database and alarm audio.
+- date: Either an actual date like '7/5' (for July 5) or relative stuff like
+'today' or 'tomorrow'. Maybe even weekday names.
 
-## To contribute (or not to contribute, that is the question)
+- time: Time in the 24-hour format.
 
-Please take a look at the [Issues](https://github.com/trk9001/afterwards/issues),
-and if you can help with any, please make a pull request. You are also most
+- -r mins: An option to sound the alarm 'mins' minutes before the task as well.
+
+- task: The actual task.
+
+### Possible components
+
+- Language: Bash and/or Python
+- Scheduling: the `at` command on Linux
+- Data/database: SQLite or MySQL or regular text files
+- Visual alert: `notify-send` or `zenity`
+- Audio alert: ?
+
+#### Misc
+
+May have one of those `.*rc` runcom files for customization and may store all
+the data in a `~/.aw/` directory or something.
+
+## To contribute
+
+Or not to contribute, that is the question.
+
+Please check the [issues](https://github.com/trk9001/afterwards/issues) out,
+and if you can help out with any, kindly make a pull request. You are also most
 welcome to open an issue to report a bug or just to chat :)
+
+## And by the way
+
+*This is for **beb**.*
