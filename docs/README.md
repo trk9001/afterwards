@@ -28,8 +28,8 @@ aw <date> <time> [-r mins] <task>
 - Language: Bash and/or Python
 - Scheduling: the `at` command on Linux
 - Data/database: SQLite or MySQL or regular text files
-- Visual alert: `notify-send` or `zenity`
-- Audio alert: ?
+- Visual alert: `xmessage` or `zenity`
+- Audio alert: `sox` (as `play`)
 
 #### Misc
 
