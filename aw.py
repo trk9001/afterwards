@@ -52,6 +52,22 @@ class AwExtractor(object):
     def extract_time(self):
             """Extract the time from the command line and return it."""
 
+            self.arg_i += 1
+            time = sys.argv[self.arg_i]
+
+            if re.fullmatch(r'\d{4}', time):
+                pass
+
+            elif re.fullmatch(r'\d{1,2}:\d{1,2}', time):
+                period = sys.argv[self.arg_i + 1].upper()
+                if period in ['AM', 'PM']:
+                    time = ' '.join([time, period])
+                    self.arg_i += 1
+
+            else:
+                time  = None
+
+            return time
 
 # End of AwExtractor
 
@@ -61,10 +77,9 @@ def main():
 
     awe = AwExtractor()
     date = awe.extract_date()
+    time = awe.extract_time()
 
-    time = sys.argv[(awe.arg_i + 1)]
-
-    aw_text = ' '.join(sys.argv[(awe.arg_i + 2):])
+    aw_text = ' '.join(sys.argv[(awe.arg_i + 1):])
 
     cmd = '''\
     at {} {} << _AW_
