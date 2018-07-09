@@ -15,20 +15,13 @@ import sys
 from subprocess import call
 from textwrap import dedent
 
+arg_i = 0  # Global index for sys.argv
 
-_arg_i = 0  # Global index for sys.argv
 
+def extract_date():
+    """Extract the date from the command line and return it."""
 
-def parse_date(dt):
-    """A date-parser function.
-
-    Converts a date's format from various possible ones to a single convenient
-    one, and returns it.
-
-    Args:
-        dt: The date argument as read from the command line.
-
-    """
+    global arg_i
 
     months = [
         'January',
@@ -45,52 +38,50 @@ def parse_date(dt):
         'December'
     ]
 
-    if dt in ['today', 'tomorrow']:
+    date = sys.argv[arg_i]
+
+    if date in ['today', 'tomorrow']:
         pass
 
-    elif dt in months or dt in [m[:3] for m in months]:
-        global _arg_i
-        dt = ' '.join([dt, str(int(sys.argv[_arg_i + 1]))])
-        _arg_i += 1
+    elif date in months or date in [m[:3] for m in months]:
+        arg_i += 1
+        date = ' '.join([date, str(int(sys.argv[arg_i]))])
 
-    elif re.fullmatch(r'\d{1,2}[./-]\d{1,2}', dt):
+    elif re.fullmatch(r'\d{1,2}[./-]\d{1,2}', date):
         for sep in './-':
-            if sep in dt:
-                dt = dt.split(sep)
+            if sep in date:
+                date = date.split(sep)
                 break
 
-        month_chart = dict()
-        for i, month in enumerate(months):
-            month_chart[i + 1] = month
+        date = ' '.join([months[int(date[0]) - 1], str(int(date[1]))])
 
-        dt = ' '.join([month_chart[int(dt[0])], str(int(dt[1]))])
-    
     else:
-        return None
+        date = None
 
-    return dt
+    arg_i += 1
+    return date
 
 
 def main():
     """Main function."""
 
-    _arg_i += 1
-    aw_date = sys.argv[_arg_i]
-    aw_date = parse_date(aw_date)
+    global arg_i
+    arg_i = 1
 
-    _arg_i += 1
-    aw_time = sys.argv[_arg_i]
+    date = extract_date()
+    time = sys.argv[arg_i]
 
-    _arg_i += 1
-    aw_text = ' '.join(sys.argv[_arg_i:])
+    arg_i += 1
+    aw_text = ' '.join(sys.argv[arg_i:])
 
     cmd = '''\
     at {} {} << _AW_
     notify-send "{}"
     _AW_'''
 
-    cmd = dedent(cmd.format(aw_time, aw_date, aw_text))
-    call(cmd, shell=True)
+    cmd = dedent(cmd.format(time, date, aw_text))
+    print(cmd)
+    # call(cmd, shell=True)
 
 
 if __name__ == '__main__':
