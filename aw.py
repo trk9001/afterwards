@@ -2,29 +2,27 @@
 
 """Afterwards (aw).
 
-See the README in docs/ or
-https://github.com/trk9001/afterwards
+A (planned) task reminder utility for Linux.
 
-This is in development. Intended usage:
-<aw date time [-r minutes] text>
+This script is in development. Its intended usage is as follows:
+`aw date time [-r minutes] text`
 
 """
 
-import calendar as cal
 import re
 import sys
+import calendar as cal
 from subprocess import call
 from textwrap import dedent
 
 
 class AwExtractor(object):
-    """Methods to extract data from command line arguments."""
+    """A class of methods to extract data from command line arguments."""
 
     def __init__(self):
             self.arg_i = 0
 
     def extract_date(self):
-            """Extract the date from the command line and return it."""
 
             self.arg_i += 1
             date = sys.argv[self.arg_i]
@@ -50,7 +48,6 @@ class AwExtractor(object):
             return date
 
     def extract_time(self):
-            """Extract the time from the command line and return it."""
 
             self.arg_i += 1
             time = sys.argv[self.arg_i]
@@ -65,7 +62,7 @@ class AwExtractor(object):
                     self.arg_i += 1
 
             else:
-                time  = None
+                time = None
 
             return time
 
@@ -73,22 +70,21 @@ class AwExtractor(object):
 
 
 def main():
-    """Main function."""
 
     awe = AwExtractor()
     date = awe.extract_date()
     time = awe.extract_time()
 
-    aw_text = ' '.join(sys.argv[(awe.arg_i + 1):])
+    # hack, but TODO: rewrite without using arg_i
+    text = ' '.join(sys.argv[(awe.arg_i + 1):])
 
     cmd = '''\
     at {} {} << _AW_
     notify-send "{}"
     _AW_'''
 
-    cmd = dedent(cmd.format(time, date, aw_text))
-    print(cmd)
-    # call(cmd, shell=True)
+    cmd = dedent(cmd.format(time, date, text))
+    call(cmd, shell=True)
 
 
 if __name__ == '__main__':
