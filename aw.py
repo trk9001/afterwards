@@ -10,69 +10,61 @@ This is in development. Intended usage:
 
 """
 
+import calendar as cal
 import re
 import sys
 from subprocess import call
 from textwrap import dedent
 
-arg_i = 0  # Global index for sys.argv
+
+class AwExtractor(object):
+    """Methods to extract data from command line arguments."""
+
+    def __init__(self):
+            self.arg_i = 0
+
+    def extract_date(self):
+            """Extract the date from the command line and return it."""
+
+            self.arg_i += 1
+            date = sys.argv[self.arg_i]
+
+            if date in ['today', 'tomorrow']:
+                pass
+
+            elif date in list(cal.month_name) + list(cal.month_abbr):
+                self.arg_i += 1
+                date = ' '.join([date, str(int(sys.argv[self.arg_i]))])
+
+            elif re.fullmatch(r'\d{1,2}[./-]\d{1,2}', date):
+                for sep in './-':
+                    if sep in date:
+                        date = [int(t) for t in date.split(sep)]
+                        break
+
+                date = ' '.join([cal.month_name[date[0]], str(date[1])])
+
+            else:
+                date = None
+
+            return date
+
+    def extract_time(self):
+            """Extract the time from the command line and return it."""
 
 
-def extract_date():
-    """Extract the date from the command line and return it."""
-
-    global arg_i
-
-    months = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-    ]
-
-    date = sys.argv[arg_i]
-
-    if date in ['today', 'tomorrow']:
-        pass
-
-    elif date in months or date in [m[:3] for m in months]:
-        arg_i += 1
-        date = ' '.join([date, str(int(sys.argv[arg_i]))])
-
-    elif re.fullmatch(r'\d{1,2}[./-]\d{1,2}', date):
-        for sep in './-':
-            if sep in date:
-                date = date.split(sep)
-                break
-
-        date = ' '.join([months[int(date[0]) - 1], str(int(date[1]))])
-
-    else:
-        date = None
-
-    arg_i += 1
-    return date
+# End of AwExtractor
 
 
 def main():
     """Main function."""
 
-    global arg_i
-    arg_i = 1
+    awe = AwExtractor()
+    date = awe.extract_date()
 
-    date = extract_date()
-    time = sys.argv[arg_i]
+    time = sys.argv[(awe.arg_i + 1)]
 
-    arg_i += 1
-    aw_text = ' '.join(sys.argv[arg_i:])
+    aw_text = ' '.join(sys.argv[(awe.arg_i + 2):])
 
     cmd = '''\
     at {} {} << _AW_
