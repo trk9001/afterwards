@@ -11,25 +11,25 @@ and display an alert on the screen, probably.
 This is really tentative.
 
 ```
-aw <date> <time> [-r mins] <task>
+aw date time [-r mins] text
 ```
 
-- date: Either an actual date like '7/5' (for July 5) or relative stuff like
+- **date**: Either an actual date like '7/5' (for July 5) or relative stuff like
 'today' or 'tomorrow'. Maybe even weekday names.
 
-- time: Time in the 24-hour format.
+- **time**: Time in the 24-hour format.
 
-- -r mins: An option to sound the alarm 'mins' minutes before the task as well.
+- **-r mins**: An option to sound the alarm 'mins' minutes before the task as well.
 
-- task: The actual task.
+- **text**: The actual text of the reminder.
 
 ### Possible components
 
-- Language: Bash and/or Python
-- Scheduling: the `at` command on Linux
-- Data/database: SQLite or MySQL or regular text files
-- Visual alert: `xmessage` or `zenity`
-- Audio alert: `sox` (as `play`)
+- [x] Language: Bash and/or Python
+- [x] Scheduling: the `at` command on Linux
+- [ ] Data/database: SQLite or MySQL or regular text files
+- [ ] Visual alert: `xmessage` or `zenity`
+- [ ] Audio alert: `sox` (as `play`)
 
 #### Misc
 
@@ -46,4 +46,4 @@ welcome to open an issue to report a bug or just to chat :)
 
 ## And by the way
 
-*This is for **beb**.*
+*This is for **Shahidi**.*
