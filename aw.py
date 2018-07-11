@@ -12,11 +12,11 @@ This script is in development. Its intended usage is as follows:
 import re
 import sys
 import calendar as cal
-from subprocess import call
-from textwrap import dedent
+import subprocess as sp
+import textwrap as tw
 
 
-class AwArgumentParser(object):
+class AwArgumentParser:
     """Methods to parse the command line arguments."""
 
     def __init__(self):
@@ -55,7 +55,7 @@ class AwArgumentParser(object):
         if re.fullmatch(r'\d{4}', time):
             pass
 
-        elif re.fullmatch(r'\d{1,2}:\d{1,2}', time):
+        elif re.fullmatch(r'\d{1,2}:\d{2}', time):
             period = sys.argv[self.arg_i + 1].upper()
             if period in ['AM', 'PM']:
                 time = ' '.join([time, period])
@@ -66,26 +66,47 @@ class AwArgumentParser(object):
 
         return time
 
+    def parse_for_msg(self):
+
+        self.arg_i += 1
+        msg = ' '.join(sys.argv[self.arg_i:])
+        return msg
+
 # End of AwArgumentParser
 
 
-def main():
+class Aw:
+    """Control centre."""
 
-    awp = AwArgumentParser()
-    date = awp.parse_for_date()
-    time = awp.parse_for_time()
+    def __init__(self):
+        self.date = None
+        self.time = None
+        self.msg = None
 
-    # hack, but TODO: rewrite without using arg_i
-    text = ' '.join(sys.argv[(awp.arg_i + 1):])
+    def schedule(self):
 
-    cmd = '''\
-    at {} {} << _AW_
-    notify-send "{}"
-    _AW_'''
+        cmd = '''\
+        at {} {} << _AW_
+        notify-send "{}"
+        _AW_'''
 
-    cmd = dedent(cmd.format(time, date, text))
-    call(cmd, shell=True)
+        cmd = tw.dedent(cmd)
+        cmd = cmd.format(self.time, self.date, self.msg)
+        sp.call(cmd, shell=True)
+
+    def main(self):
+
+        parser = AwArgumentParser()
+        self.date = parser.parse_for_date()
+        self.time = parser.parse_for_time()
+        self.msg = parser.parse_for_msg()
+
+        self.schedule()
+
+# End of Aw
 
 
 if __name__ == '__main__':
-    main()
+
+    aw = Aw()
+    aw.main()
