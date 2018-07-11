@@ -88,6 +88,7 @@ class Aw:
         cmd = '''\
         at {} {} << _AW_
         notify-send "{}"
+        play ~/.aw/alarm.mp3 trim 0 3
         _AW_'''
 
         cmd = tw.dedent(cmd)
