@@ -16,67 +16,67 @@ from subprocess import call
 from textwrap import dedent
 
 
-class AwExtractor(object):
-    """A class of methods to extract data from command line arguments."""
+class AwArgumentParser(object):
+    """Methods to parse the command line arguments."""
 
     def __init__(self):
-            self.arg_i = 0
+        self.arg_i = 0
 
-    def extract_date(self):
+    def parse_for_date(self):
 
+        self.arg_i += 1
+        date = sys.argv[self.arg_i]
+
+        if date in ['today', 'tomorrow']:
+            pass
+
+        elif date in list(cal.month_name) + list(cal.month_abbr):
             self.arg_i += 1
-            date = sys.argv[self.arg_i]
+            date = ' '.join([date, str(int(sys.argv[self.arg_i]))])
 
-            if date in ['today', 'tomorrow']:
-                pass
+        elif re.fullmatch(r'\d{1,2}[./-]\d{1,2}', date):
+            for sep in './-':
+                if sep in date:
+                    date = [int(t) for t in date.split(sep)]
+                    break
 
-            elif date in list(cal.month_name) + list(cal.month_abbr):
+            date = ' '.join([cal.month_name[date[0]], str(date[1])])
+
+        else:
+            date = None
+
+        return date
+
+    def parse_for_time(self):
+
+        self.arg_i += 1
+        time = sys.argv[self.arg_i]
+
+        if re.fullmatch(r'\d{4}', time):
+            pass
+
+        elif re.fullmatch(r'\d{1,2}:\d{1,2}', time):
+            period = sys.argv[self.arg_i + 1].upper()
+            if period in ['AM', 'PM']:
+                time = ' '.join([time, period])
                 self.arg_i += 1
-                date = ' '.join([date, str(int(sys.argv[self.arg_i]))])
 
-            elif re.fullmatch(r'\d{1,2}[./-]\d{1,2}', date):
-                for sep in './-':
-                    if sep in date:
-                        date = [int(t) for t in date.split(sep)]
-                        break
+        else:
+            time = None
 
-                date = ' '.join([cal.month_name[date[0]], str(date[1])])
+        return time
 
-            else:
-                date = None
-
-            return date
-
-    def extract_time(self):
-
-            self.arg_i += 1
-            time = sys.argv[self.arg_i]
-
-            if re.fullmatch(r'\d{4}', time):
-                pass
-
-            elif re.fullmatch(r'\d{1,2}:\d{1,2}', time):
-                period = sys.argv[self.arg_i + 1].upper()
-                if period in ['AM', 'PM']:
-                    time = ' '.join([time, period])
-                    self.arg_i += 1
-
-            else:
-                time = None
-
-            return time
-
-# End of AwExtractor
+# End of AwArgumentParser
 
 
 def main():
 
-    awe = AwExtractor()
-    date = awe.extract_date()
-    time = awe.extract_time()
+    awp = AwArgumentParser()
+    date = awp.parse_for_date()
+    time = awp.parse_for_time()
 
     # hack, but TODO: rewrite without using arg_i
-    text = ' '.join(sys.argv[(awe.arg_i + 1):])
+    text = ' '.join(sys.argv[(awp.arg_i + 1):])
 
     cmd = '''\
     at {} {} << _AW_
