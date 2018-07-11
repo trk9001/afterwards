@@ -29,7 +29,7 @@ aw date time [-r mins] text
 - [x] Scheduling: the `at` command on Linux
 - [ ] Data/database: SQLite or MySQL or regular text files
 - [ ] Visual alert: `xmessage` or `zenity`
-- [ ] Audio alert: `sox` (as `play`)
+- [x] Audio alert: `sox` (as `play`)
 
 #### Misc
 
