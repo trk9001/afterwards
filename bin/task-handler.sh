@@ -11,3 +11,4 @@ zenity --text-info \
        --html --width=500 --height=175
 
 killall play
+rm "$msgFile"
