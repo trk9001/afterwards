@@ -28,7 +28,7 @@ class AwArgumentParser:
     def parse_for_date(self):
 
         self.arg_i += 1
-        date = sys.argv[self.arg_i]
+        date = sys.argv[self.arg_i].lower()
 
         if date in ['today', 'tomorrow']:
             pass
