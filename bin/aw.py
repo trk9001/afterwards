@@ -91,8 +91,8 @@ class Aw:
         msg_file = self.make_msg_file()
 
         cmd = '''\
-        at {} {} << _AW_ > /dev/null 2>&1
-        ~/.aw/bin/task-handler.sh {}
+        at {0} {1} << _AW_ > /dev/null 2>&1
+        "$HOME/.aw/bin/task-handler.sh" "{2}"
         _AW_'''
 
         cmd = tw.dedent(cmd)
