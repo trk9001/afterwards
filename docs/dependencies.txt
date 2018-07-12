@@ -8,3 +8,6 @@ Keeping track of dependencies here.
 
 3. mp3 handler for sox
 > sudo apt install libsox-fmt-mp3
+
+4. zenity - GTK3 dialog creator
+> sudo apt install zenity
