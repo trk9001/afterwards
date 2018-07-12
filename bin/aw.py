@@ -108,8 +108,9 @@ class Aw:
         if len(msgs) == 0:
             msg_file = 'msg001'
         elif msgs[-1] == 'msg999':
+            msg_file = 'msg'
             for i in range(1, 999):
-                msg_file = 'msg' + str(i).zfill(3)
+                msg_file += str(i).zfill(3)
                 if msg_file not in msgs:
                     break
         else:
