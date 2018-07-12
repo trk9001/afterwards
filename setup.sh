@@ -1,19 +1,24 @@
 #!/usr/bin/env bash
 
-mkdir ~/.aw
-mkdir ~/.aw/docs ~/.aw/sounds ~/.aw/resources ~/.aw/messages ~/.aw/bin
+mkdir "$HOME/.aw"
+mkdir "$HOME/.aw/docs" \
+      "$HOME/.aw/sounds" \
+      "$HOME/.aw/resources" \
+      "$HOME/.aw/messages" \
+      "$HOME/.aw/bin"
 
-cp -r docs ~/.aw/
-cp sounds/alarm.mp3 ~/.aw/sounds
-cp resources/msg-template ~/.aw/resources/
-cp -r bin ~/.aw/
+cp -r docs "$HOME/.aw/"
+cp sounds/alarm.mp3 "$HOME/.aw/sounds"
+cp resources/msg-template "$HOME/.aw/resources/"
+cp -r bin "$HOME/.aw/"
 
-chmod +x ~/.aw/bin/*
+chmod +x "$HOME/.aw/bin/aw.py"
+chmod +x "$HOME/.aw/bin/task-handler.sh"
 
-if [[ ! -d "~/bin" ]]; then
-    mkdir ~/bin
+if [[ ! -d "$HOME/bin" ]]; then
+    mkdir "$HOME/bin"
 fi
 
-ln -s ~/.aw/bin/aw.py ~/bin/aw
+ln -s "$HOME/.aw/bin/aw.py" "$HOME/bin/aw"
 
 exit 0
