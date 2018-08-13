@@ -14,6 +14,7 @@ cp -r bin "$HOME/.aw/"
 
 chmod +x "$HOME/.aw/bin/aw.py"
 chmod +x "$HOME/.aw/bin/task-handler.sh"
+chmod +x "$HOME/.aw/bin/uninstall.sh"
 
 if [[ ! -d "$HOME/bin" ]]; then
     mkdir "$HOME/bin"
