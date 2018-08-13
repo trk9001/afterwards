@@ -2,7 +2,7 @@
 
 msgFile="$1"
 
-(sleep 0.6; play -q ~/aw/sounds/alarm.mp3) &
+(sleep 0.6; play -q ~/.aw/sounds/alarm.mp3) &
 
 env DISPLAY=:0.0 \
 zenity --text-info \
