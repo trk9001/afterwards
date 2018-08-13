@@ -1,48 +1,58 @@
 #!/usr/bin/env python3
 
-"""Afterwards (aw).
+"""Afterwards (aw): a task reminder utility for Linux.
 
-A (planned) task reminder utility for Linux.
+For more information visit:
+https://github.com/trk9001/afterwards
 
-This script is in development. Its intended usage is as follows:
-`aw date time [-r minutes] text`
-
+Copyright © 2018 trk9001
+(GNU GPLv3)
 """
 
 import getpass
 import re
 import sys
+
 import calendar as cal
 import subprocess as sp
 import textwrap as tw
+
 from os import listdir
 from os.path import isfile, join
 
 
 class AwArgumentParser:
-    """Methods to parse the command line arguments."""
+    """Methods to parse the command line arguments.
+
+    Attributes:
+        arg_i: Index to keep track of the arguments
+
+    """
 
     def __init__(self):
         self.arg_i = 0
 
     def parse_for_date(self):
+        """Parse the arguments for a date and return it in a known format."""
 
         self.arg_i += 1
         date = sys.argv[self.arg_i].lower()
 
+        # Acceptable relative dates
         if date in ['today', 'tomorrow']:
             pass
 
+        # Dates in words (January 1, Dec 31 etc.)
         elif date in list(cal.month_name) + list(cal.month_abbr):
             self.arg_i += 1
             date = ' '.join([date, str(int(sys.argv[self.arg_i]))])
 
+        # Numeric dates
         elif re.fullmatch(r'\d{1,2}[./-]\d{1,2}', date):
             for sep in './-':
                 if sep in date:
                     date = [int(t) for t in date.split(sep)]
                     break
-
             date = ' '.join([cal.month_name[date[0]], str(date[1])])
 
         else:
@@ -51,13 +61,16 @@ class AwArgumentParser:
         return date
 
     def parse_for_time(self):
+        """Parse the arguments for a time and return it in a known format."""
 
         self.arg_i += 1
         time = sys.argv[self.arg_i]
 
+        # 24-hour time
         if re.fullmatch(r'\d{4}', time):
             pass
 
+        # 12-hour time
         elif re.fullmatch(r'\d{1,2}:\d{2}', time):
             period = sys.argv[self.arg_i + 1].upper()
             if period in ['AM', 'PM']:
@@ -70,6 +83,7 @@ class AwArgumentParser:
         return time
 
     def parse_for_msg(self):
+        """Parse the arguments for a message and return it."""
 
         self.arg_i += 1
         msg = ' '.join(sys.argv[self.arg_i:])
@@ -79,7 +93,7 @@ class AwArgumentParser:
 
 
 class Aw:
-    """Control centre."""
+    """The control centre."""
 
     def __init__(self):
         self.date = None
@@ -87,6 +101,7 @@ class Aw:
         self.msg = None
 
     def schedule(self):
+        """Call the task handler script to schedule the reminder."""
 
         msg_file = self.make_msg_file()
 
@@ -100,11 +115,13 @@ class Aw:
         sp.call(cmd, shell=True)
 
     def make_msg_file(self):
+        """Create the file from which the reminder text will be read."""
 
         usr = getpass.getuser()
         msg_path = '/home/' + usr + '/.aw/messages'
         msgs = [f for f in listdir(msg_path) if isfile(join(msg_path, f))]
 
+        # Max allowed message files: 999
         if len(msgs) == 0:
             msg_file = 'msg001'
         elif msgs[-1] == 'msg999':
@@ -116,10 +133,12 @@ class Aw:
         else:
             msg_file = 'msg' + str(int(msgs[-1][3:]) + 1).zfill(3)
 
+        # Read from the template ...
         template_file = '/home/' + usr + '/.aw/resources/msg-template'
         with open(template_file, 'r', encoding='utf-8') as f:
             template = f.read()
 
+        # ... and write to the file.
         msg_file = join(msg_path, msg_file)
         with open(msg_file, 'w', encoding='utf-8') as f:
             f.write(template.format(self.msg))
