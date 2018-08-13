@@ -11,7 +11,7 @@ accessed by pressing Alt-F2).
 ## Usage
 
 ```
-aw date time msg
+$ aw date time msg
 ```
 
 - **date**:  
@@ -37,7 +37,7 @@ Do note that so far *Afterwards* has been tested on Ubuntu 18.04 only. If you're
 on it too, you would install these things by putting `sudo apt install` before
 their names. Something like  
 ```bash
-sudo apt install sox libsox-fmt-mp3 zenity at
+$ sudo apt install sox libsox-fmt-mp3 zenity at
 ```
 
 - **Python**:  
@@ -60,15 +60,15 @@ Non-recurring, one-time task scheduler (among other things).
 ## Installation
 
 ```bash
-# Clone it from GitHub
-git clone https://github.com/trk9001/afterwards.git
+$ # Clone it from GitHub
+$ git clone https://github.com/trk9001/afterwards.git
 
-cd afterwards
+$ cd afterwards
 
-# Make the setup script executable
-chmod +x setup.sh
+$ # Make the setup script executable
+$ chmod +x setup.sh
 
-./setup.sh
+$ ./setup.sh
 ```
 
 ## The future
@@ -96,18 +96,10 @@ welcome to open an issue to report a bug or ask a q or just to chat :)
 
 Copyright © 2018 trk9001
 
-This program is free software: you can redistribute it and/or modify  
-it under the terms of the GNU General Public License as published by  
-the Free Software Foundation, either version 3 of the License, or  
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,  
-but WITHOUT ANY WARRANTY; without even the implied warranty of  
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the  
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License  
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ## And btw
 
