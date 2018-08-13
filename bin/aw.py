@@ -147,6 +147,11 @@ class Aw:
 
     def main(self):
 
+        # Handle option to uninstall
+        if '--uninstall' in sys.argv[1:]:
+            sp.call('$HOME/.aw/bin/uninstall.sh', shell=True)
+            return
+
         parser = AwArgumentParser()
         self.date = parser.parse_for_date()
         self.time = parser.parse_for_time()
