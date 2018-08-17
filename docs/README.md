@@ -1,5 +1,9 @@
 ## Afterwards (aw)
 
+[![GitHub license](https://img.shields.io/github/license/trk9001/afterwards.svg?style=flat-square)](https://github.com/trk9001/afterwards/blob/master/LICENSE.txt)
+[![First stargazer](https://img.shields.io/badge/first%20stargazer-Saad-brightgreen.svg?style=flat-square)](https://github.com/tthesaadmann)
+[![Second stargazer](https://img.shields.io/badge/second%20stargazer-Sneha-brightgreen.svg?style=flat-square)](https://github.com/SanjidaSanwar)
+
 *Afterwards* is a command-line task reminder utility for Linux, written
 primarily in Python (and utilizing Linux tools). The user specifies a date,
 a time and a message, and at the specified moment *aw* sounds an alarm and
