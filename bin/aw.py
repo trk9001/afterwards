@@ -2,11 +2,20 @@
 
 """Afterwards (aw): a task reminder utility for Linux.
 
+Copyright © 2018 trk9001
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
 For more information visit:
 https://github.com/trk9001/afterwards
-
-Copyright © 2018 trk9001
-(GNU GPLv3)
 """
 
 import getpass
