@@ -1,4 +1,6 @@
 ## Afterwards (aw)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ftrk9001%2Fafterwards.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Ftrk9001%2Fafterwards?ref=badge_shield)
+
 
 *Afterwards* is a command-line task reminder utility for Linux, written
 primarily in Python (and utilizing Linux tools). The user specifies a date,
@@ -98,6 +100,9 @@ This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ftrk9001%2Fafterwards.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Ftrk9001%2Fafterwards?ref=badge_large)
 
 ### And btw
 
