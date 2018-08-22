@@ -19,4 +19,4 @@ fi
 # Symlink to the main script in ~/bin
 ln -s "$HOME/.afterwards/aw/afterwards.py" "$HOME/bin/aw"
 
-return 0
+exit 0
