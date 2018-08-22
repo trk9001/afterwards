@@ -1,4 +1,4 @@
 #! /usr/bin/env bash
 
-rm -rf "$HOME/.aw"
+rm -rf "$HOME/.afterwards"
 rm "$HOME/bin/aw"
