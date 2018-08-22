@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#! /usr/bin/env bash
 
 mkdir "$HOME/.aw"
 mkdir "$HOME/.aw/docs" \
