@@ -30,17 +30,19 @@ class AwArgumentParser:
 
     Attributes:
         arg_i: Index to keep track of the arguments
+        argv: argument vector to parse
 
     """
 
-    def __init__(self):
+    def __init__(self, argv):
         self.arg_i = 0
+        self.argv = argv
 
     def parse_for_date(self):
         """Parse the arguments for a date and return it in a known format."""
 
         self.arg_i += 1
-        date = sys.argv[self.arg_i].lower()
+        date = self.argv[self.arg_i].lower()
 
         # Acceptable relative dates
         if date in ['today', 'tomorrow']:
@@ -49,7 +51,7 @@ class AwArgumentParser:
         # Dates in words (January 1, Dec 31 etc.)
         elif date in list(cal.month_name) + list(cal.month_abbr):
             self.arg_i += 1
-            date = ' '.join([date, str(int(sys.argv[self.arg_i]))])
+            date = ' '.join([date, str(int(self.argv[self.arg_i]))])
 
         # Numeric dates
         elif re.fullmatch(r'\d{1,2}[./-]\d{1,2}', date):
@@ -68,7 +70,7 @@ class AwArgumentParser:
         """Parse the arguments for a time and return it in a known format."""
 
         self.arg_i += 1
-        time = sys.argv[self.arg_i]
+        time = self.argv[self.arg_i]
 
         # 24-hour time
         if re.fullmatch(r'\d{4}', time):
@@ -76,7 +78,7 @@ class AwArgumentParser:
 
         # 12-hour time
         elif re.fullmatch(r'\d{1,2}:\d{2}', time):
-            period = sys.argv[self.arg_i + 1].upper()
+            period = self.argv[self.arg_i + 1].upper()
             if period in ['AM', 'PM']:
                 time = ' '.join([time, period])
                 self.arg_i += 1
@@ -90,7 +92,7 @@ class AwArgumentParser:
         """Parse the arguments for a message and return it."""
 
         self.arg_i += 1
-        msg = ' '.join(sys.argv[self.arg_i:])
+        msg = ' '.join(self.argv[self.arg_i:])
         return msg
 
 # End of AwArgumentParser
@@ -156,7 +158,7 @@ class Aw:
             sp.call('$HOME/.aw/bin/uninstall.sh', shell=True)
             return
 
-        parser = AwArgumentParser()
+        parser = AwArgumentParser(sys.argv)
         self.date = parser.parse_for_date()
         self.time = parser.parse_for_time()
         self.msg = parser.parse_for_msg()
