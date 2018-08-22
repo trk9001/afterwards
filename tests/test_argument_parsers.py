@@ -36,7 +36,7 @@ def test_parse_for_time_12hr():
     cmd = 'aw today 1:37 pm Eat, code and sleep.'
     parser = AwArgumentParser(cmd.split())
     parser.parse_for_date()
-    assert parser.parse_for_time() == '1:37 PM'
+    assert parser.parse_for_time() == '1:37 pm'
 
 
 def test_parse_for_time_failure():

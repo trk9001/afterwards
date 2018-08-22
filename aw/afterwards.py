@@ -81,8 +81,8 @@ class AwArgumentParser:
 
         # 12-hour time
         elif re.fullmatch(r'\d{1,2}:\d{2}', time):
-            period = self.argv[self.arg_i + 1].upper()
-            if period in ['AM', 'PM']:
+            period = self.argv[self.arg_i + 1].lower()
+            if period in ['am', 'pm']:
                 time = ' '.join([time, period])
                 self.arg_i += 1
 
