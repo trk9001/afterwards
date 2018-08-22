@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-mkdir -p "$HOME/.afterwards"
+mkdir -p "$HOME/.afterwards/messages"
 cp -r aw "$HOME/.afterwards/"
 
 # Remove Python packaging

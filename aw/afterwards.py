@@ -116,7 +116,7 @@ class Aw:
 
         cmd = '''\
         at {0} {1} << _AW_ > /dev/null 2>&1
-        "$HOME/.aw/bin/task-handler.sh" "{2}"
+        "$HOME/.afterwards/aw/bin/task-handler.sh" "{2}"
         _AW_'''
 
         cmd = tw.dedent(cmd)
@@ -127,7 +127,7 @@ class Aw:
         """Create the file from which the reminder text will be read."""
 
         usr = getpass.getuser()
-        msg_path = '/home/' + usr + '/.aw/messages'
+        msg_path = '/home/' + usr + '/.afterwards/messages'
         msgs = [f for f in listdir(msg_path) if isfile(join(msg_path, f))]
 
         # Max allowed message files: 999
@@ -143,7 +143,7 @@ class Aw:
             msg_file = 'msg' + str(int(msgs[-1][3:]) + 1).zfill(3)
 
         # Read from the template ...
-        template_file = '/home/' + usr + '/.aw/resources/msg-template'
+        template_file = '/home/' + usr + '/.afterwards/aw/resources/msg-template'
         with open(template_file, 'r', encoding='utf-8') as f:
             template = f.read()
 
@@ -158,7 +158,7 @@ class Aw:
 
         # Handle option to uninstall
         if '--uninstall' in sys.argv[1:]:
-            sp.call('$HOME/.aw/bin/uninstall.sh', shell=True)
+            sp.call('$HOME/.afterwards/aw/bin/uninstall.sh', shell=True)
             return
 
         parser = AwArgumentParser(sys.argv)
