@@ -44,14 +44,17 @@ class AwArgumentParser:
         self.arg_i += 1
         date = self.argv[self.arg_i].lower()
 
-        # Acceptable relative dates
-        if date in ['today', 'tomorrow']:
-            pass
+        months_list = [m.lower() for m in cal.month_name]
+        months_list.extend([m.lower() for m in cal.month_abbr])
 
         # Dates in words (January 1, Dec 31 etc.)
-        elif date in list(cal.month_name) + list(cal.month_abbr):
+        if date in months_list:
             self.arg_i += 1
             date = ' '.join([date, str(int(self.argv[self.arg_i]))])
+
+        # Acceptable relative dates
+        elif date in ['today', 'tomorrow']:
+            pass
 
         # Numeric dates
         elif re.fullmatch(r'\d{1,2}[./-]\d{1,2}', date):
@@ -59,7 +62,7 @@ class AwArgumentParser:
                 if sep in date:
                     date = [int(t) for t in date.split(sep)]
                     break
-            date = ' '.join([cal.month_name[date[0]], str(date[1])])
+            date = ' '.join([months_list[date[0]], str(date[1])])
 
         else:
             date = None
