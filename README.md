@@ -1,10 +1,11 @@
 ## Afterwards (aw)
 
-[![Build Status][1-img]][1-lnk]
 [![GitHub license][2-img]][2-lnk]
-![GitHub last commit][5-img]
 ![GitHub repo size in bytes][3-img]
 ![GitHub tag][4-img]
+[![Build Status][1-img]][1-lnk]
+[![codecov][6-img]][6-lnk]
+![GitHub last commit][5-img]
 
 [1-img]: https://travis-ci.com/trk9001/afterwards.svg?branch=master
 [1-lnk]: https://travis-ci.com/trk9001/afterwards
@@ -13,6 +14,8 @@
 [3-img]: https://img.shields.io/github/repo-size/trk9001/afterwards.svg
 [4-img]: https://img.shields.io/github/tag/trk9001/afterwards.svg
 [5-img]: https://img.shields.io/github/last-commit/trk9001/afterwards.svg
+[6-img]: https://codecov.io/gh/trk9001/afterwards/branch/master/graph/badge.svg
+[6-lnk]: https://codecov.io/gh/trk9001/afterwards
 
 *Afterwards* is a command-line task reminder utility for Linux, written
 primarily in Python (and utilizing Linux tools). The user specifies a date,
