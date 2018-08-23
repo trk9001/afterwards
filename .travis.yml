@@ -1,0 +1,14 @@
+language: python
+
+python:
+  - "3.5"
+  - "3.6"
+
+install:
+  - pip install pytest-cov
+
+script:
+  - python -m pytest --cov=aw tests/
+
+after_success:
+  - codecov
