@@ -19,4 +19,5 @@ fi
 # Symlink to the main script in ~/bin
 ln -s "$HOME/.afterwards/aw/afterwards.py" "$HOME/bin/aw"
 
+echo "Setup was successful."
 exit 0
